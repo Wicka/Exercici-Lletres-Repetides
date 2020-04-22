@@ -18,7 +18,8 @@ function Fase1() {
 	nom [4]='e';
 	nom [5]='r';
     
-  
+	document.getElementById("resultado").innerHTML="";	//LIMPIO PANTALLA EN EL DOC HTML
+
     for ( let i=0; i<iCont; i++) {		  //BUCLE PARA RECORRER ARRAY BIDIMENSIONAL
       
         document.getElementById("resultado").innerHTML+=nom [i] +"<br>";
@@ -40,7 +41,9 @@ function Fase1() {
 function Fase2() {
 
 		let  nom=['E','2','t','h','e','r']; //DECLARO  LISTA E INICIO MI LISTA 
-		
+	
+		document.getElementById("resultado").innerHTML="";	//LIMPIO PANTALLA EN EL DOC HTML
+	
         for(i=0; i<nom.length; i++ ) {   //RECORRO LISTA POR CADA ELEMENTO Character
             
             let car=nom[i];
@@ -85,23 +88,47 @@ function Fase3() {
         let cognom1=['M','e','s','a'];
         let cognom2=['P','a','r','e','j','a']; 
         //DECLARACION DE UN ARRAY DE ARRAYS		
-        let nombreEntero=[nom,cognom1,cognom2];
-        let i,j,iCont2,iCont1,car;
-        
-        iCont1=nombreEntero.length;
-        
-        for (i=0; i<iCont1; i++){
+  //      let nombreEntero=[nom,cognom1,cognom2];
+		
+		let i,iCont=0;
+		var letras;
+		var nombre="";
+		var cant;
+		var Mapa = new Map();
 
-            iCont2=nombreEntero[i].length;
-            
-            for (j=0; j<iCont2;j++){
-                car=nombreEntero[i][j];
-                car=car.toLowerCase();
-            }
-        }
+		document.getElementById("resultado").innerHTML="";	//LIMPIO PANTALLA EN EL DOC HTML
 
-        document.getElementById("resultado").innerHTML+="<br>" + nombreEntero;
-	
+		for (i=0; i< nom.length; i++){			//RECORRO ARRAY nom Y GUARDO EN STRING nombre
+			nombre += nom[i];        
+		}
+		for (i=0; i< cognom1.length; i++){	    //RECORRO ARRAY cognom1 Y GUARDO CONCATENANDO EN STRING nombre
+			nombre += cognom1[i];        
+		}
+		for (i=0; i< cognom2.length; i++){	    //RECORRO ARRAY cognom2 Y GUARDO CONCATENANDO EN STRING nombre
+			nombre += cognom2[i];        
+		}
+
+		nombre=nombre.toLowerCase();		//UNA VEZ COMPLETO EL STRING nombre LO PASO A MINUSCULAS 
+		//cant=0;
+
+		for (i=0; i<nombre.length-1; i++){		//RECORRO EL STRING nombre 
+			
+			letras=nombre[i];					//GUARDO EL CARACTER DEL STRING letras QUE USARE COMO CLAVE EN EL MAPA
+		
+			cant=Mapa.get(letras);		//GUARDO EL VALOR DEL MAPA DE LA CLAVE letras QUE CONTIENE EL CARACTER DEL STRING nombre[i] EN POSICIO i EN VAR cant
+			
+			if(isNaN(cant)){	//SI cant NO GUARDA UN NUMERO ES QUE NO EXISTE LA CLAVE letras EN EL MAPA Y LO INICIO CON cant=0
+				cant=0;
+			}
+			cant=cant+1;		//SI NO ENTRO EN EL IF ANTERIOR QUIERE DECIR QUE HABIA UN VALOR POR LO QUE LE SUMO UNO MAS PUES HAY OTRO CARACTER IGUAL AL QUE DE LA KEY
+			Mapa.set(letras,cant);	//GUARDO EL VALOR cant ACTUALIZADO CON SU SUMA
+		}		         
+
+		for (var [letras,cant] of Mapa){		//RECORRO EL MAPA PARA MOSTRAR EN PANTALLA CADA KEY CON SU VALOR
+
+			document.getElementById("resultado").innerHTML+="<br>" + "Letra : "+ letras+ " se Repite : "+cant;	
+		}
+     
 }
 
 
@@ -124,6 +151,8 @@ function Fase4() {
 		
         let nom=[], cognom=[], fullname=[];
 		
+		document.getElementById("resultado").innerHTML="";	//LIMPIO PANTALLA EN EL DOC HTML
+
 		nom.push('E');		//RELLENO LA LISTA CON EL NOMBRE
 		nom.push('s');
 		nom.push('t');
